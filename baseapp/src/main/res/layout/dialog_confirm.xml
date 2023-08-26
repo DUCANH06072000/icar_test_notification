@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:blrfl="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <com.tatv.baseapp.view.tview.rounded.RoundedRelativeLayout
+            android:id="@+id/root_layout"
+            android:layout_width="@dimen/size560dp"
+            android:layout_height="wrap_content"
+            android:background="#03A9F4"
+            blrfl:cornerRadiusValue="@dimen/size20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size22dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/size24dp">
+
+                    <TextView
+                        android:id="@+id/txt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Thông báo"
+                        android:textColor="#4F4F4F"
+                        android:textSize="@dimen/size16sp" />
+
+                    <TextView
+                        android:id="@+id/txtContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size10dp"
+                        android:layout_marginBottom="@dimen/size28dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:maxLines="2"
+                        android:text="Nội dung"
+                        android:textColor="#A1A1A1"
+                        android:textSize="@dimen/size14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_action"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size60dp"
+                    android:background="#FF5722">
+
+                    <TextView
+                        android:id="@+id/txt_confirm"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Đồng ý"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14sp"
+                        android:fontFamily="@font/roboto_regular" />
+
+                    <View
+                        android:layout_width="@dimen/size1dp"
+                        android:layout_height="@dimen/size30dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:id="@+id/txt_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Hủy bỏ"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size14sp"
+                        android:fontFamily="@font/roboto_regular" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.tatv.baseapp.view.tview.rounded.RoundedRelativeLayout>
+    </RelativeLayout>
+</layout>

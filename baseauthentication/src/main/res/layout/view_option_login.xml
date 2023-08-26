@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:id="@+id/view_option_login"
+        android:visibility="gone"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/size700dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/size25dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size20dp"
+                    android:layout_marginTop="@dimen/size40dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="Vui lòng đăng nhập để sử dụng dịch vụ"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size22dp" />
+
+                <TextView
+                    android:id="@+id/txt_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size40dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="Bạn hãy sử dụng tài khoản ICAR-M của bạn để đăng nhập. Nếu không có tài khoản ICAR-M, bạn có thể ấn nút dùng thử để trải nghiệm phần mềm trong vòng 30 ngày."
+                    android:textColor="#767676"
+                    android:textSize="@dimen/size15dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/txt_note"
+                    android:layout_marginTop="@dimen/size40dp"
+                    android:layout_marginBottom="@dimen/size40dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/trial"
+                        android:textSize="@dimen/size15dp"
+                        android:fontFamily="@font/svn_poppins_semibold"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_bt_login"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/size12dp"
+                        android:paddingHorizontal="@dimen/size30dp"
+                        android:layout_marginRight="@dimen/size70dp"
+                        android:id="@+id/bt_trial"
+                        android:maxLines="3"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:onClick="onTrial" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:textSize="@dimen/size15dp"
+                        android:fontFamily="@font/svn_poppins_semibold"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_bt_login"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="@dimen/size12dp"
+                        android:paddingHorizontal="@dimen/size30dp"
+                        android:layout_marginLeft="@dimen/size70dp"
+                        android:maxLines="3"
+                        android:ellipsize="end"
+                        android:id="@+id/bt_login"
+                        android:onClick="onLogin" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:layout_width="@dimen/size40dp"
+                    android:layout_height="@dimen/size40dp"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/progressbar_color"
+                    android:visibility="gone"
+                    android:id="@+id/progress_bar" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

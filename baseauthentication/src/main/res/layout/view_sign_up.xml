@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/view_sign_up">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/size405dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/size25dp"
+            android:id="@+id/card_sign_up"
+           >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/size70dp"
+                    android:layout_height="@dimen/size70dp"
+                    android:src="@drawable/ic_close"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/size23dp"
+                    android:id="@+id/img_close_sign_up"
+                    android:onClick="onCloseSignUp" />
+
+                <TextView
+                    android:id="@+id/txt_title_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size26dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="Đăng Ký"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size22dp" />
+
+                <TextView
+                    android:id="@+id/txt_note_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_title_signup"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size65dp"
+                    android:layout_marginTop="@dimen/size6dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="Nhập số điện thoại của bạn, sau đó nhập mã OTP để thiết lập mật khẩu"
+                    android:textColor="#767676"
+                    android:textSize="@dimen/size13dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/txt_note_signup"
+                    android:layout_marginHorizontal="@dimen/size33dp"
+                    android:layout_marginTop="@dimen/size21dp"
+                    android:layout_marginBottom="@dimen/size12dp"
+                    android:id="@+id/view_sdt_sign_up">
+
+                    <EditText
+                        android:id="@+id/edt_sdt_sign_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size45dp"
+                        android:background="@drawable/bg_edt_login_icarm"
+                        android:hint="Số điện thoại"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:paddingVertical="@dimen/size8dp"
+                        android:paddingLeft="@dimen/size16dp"
+                        android:textColorHint="#969595"
+                        android:textSize="@dimen/size13dp" />
+
+                    <TextView
+                        android:id="@+id/bt_send_otp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size45dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/bg_bt_login"
+                        android:fontFamily="@font/svn_poppins_semibold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:onClick="onSendOTP"
+                        android:paddingHorizontal="@dimen/size25dp"
+                        android:text="@string/send"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/size13dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txt_time_otp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_sdt_sign_up"
+                    android:layout_marginHorizontal="@dimen/size46dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:text="(0)"
+                    android:textColor="#FF1100"
+                    android:textSize="@dimen/size12dp"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/edt_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size45dp"
+                    android:layout_below="@+id/txt_time_otp"
+                    android:layout_marginHorizontal="@dimen/size33dp"
+                    android:background="@drawable/bg_edt_login_icarm"
+                    android:hint="@string/code_otp"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:paddingVertical="@dimen/size8dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:textColorHint="#969595"
+                    android:textSize="@dimen/size13dp" />
+
+
+                <TextView
+                    android:id="@+id/txt_send_otp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edt_otp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:text="@string/otp"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size11dp"
+                    android:onClick="onResendOTP"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/txt_content_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_send_otp"
+                    android:layout_marginHorizontal="@dimen/size45dp"
+                    android:layout_marginVertical="@dimen/size10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:text="@string/enter_password"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size11dp"
+                    android:visibility="gone"
+                     />
+
+                <EditText
+                    android:id="@+id/edt_password_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size45dp"
+                    android:layout_below="@+id/txt_content_password"
+                    android:layout_marginHorizontal="@dimen/size33dp"
+                    android:background="@drawable/bg_edt_login_icarm"
+                    android:hint="@string/password"
+                    android:inputType="text"
+                    android:paddingVertical="@dimen/size8dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:textColorHint="#969595"
+                    android:textSize="@dimen/size13dp"
+                    android:visibility="gone"
+                     />
+
+                <TextView
+                    android:id="@+id/txt_password_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edt_password_new"
+                    android:layout_marginHorizontal="@dimen/size45dp"
+                    android:text="fsgfdgdgfhr"
+                    android:textColor="#FF0000"
+                    android:textSize="@dimen/size13dp"
+                    android:visibility="gone"
+                 />
+
+                <EditText
+                    android:id="@+id/edt_password_new_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size45dp"
+                    android:layout_below="@+id/txt_password_new"
+                    android:layout_marginHorizontal="@dimen/size33dp"
+                    android:layout_marginTop="@dimen/size12dp"
+                    android:background="@drawable/bg_edt_login_icarm"
+                    android:hint="@string/enter_the_password"
+                    android:inputType="text"
+                    android:paddingVertical="@dimen/size8dp"
+                    android:paddingLeft="@dimen/size16dp"
+                    android:textColorHint="#969595"
+                    android:textSize="@dimen/size13dp"
+                    android:visibility="gone"
+                   />
+
+                <TextView
+                    android:id="@+id/txt_password_new_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edt_password_new_again"
+                    android:layout_marginHorizontal="@dimen/size45dp"
+                    android:text="fsgfdgdgfhr"
+                    android:textColor="#FF0000"
+                    android:textSize="@dimen/size13dp"
+                    android:visibility="gone"
+                    />
+
+
+                <TextView
+                    android:id="@+id/bt_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/size40dp"
+                    android:layout_below="@+id/txt_password_new_again"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="@dimen/size11dp"
+                    android:background="@drawable/bg_bt_signout"
+                    android:fontFamily="@font/svn_poppins_semibold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="@dimen/size35dp"
+                    android:text="Đăng ký"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/size13dp"
+                    android:onClick="onConfirmSignup"
+                    />
+
+                <ProgressBar
+                    android:layout_width="@dimen/size40dp"
+                    android:layout_height="@dimen/size40dp"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/progressbar_color"
+                    android:visibility="gone"
+                    android:id="@+id/progress_bar_sign_up" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

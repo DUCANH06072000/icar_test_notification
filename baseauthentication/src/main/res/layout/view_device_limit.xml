@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:id="@+id/view_device_limit"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/size700dp"
+            android:layout_height="@dimen/size350dp"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/size25dp"
+            android:id="@+id/card_device_limit">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_device_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size25dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:text="@string/limit_login_devices"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size22dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size13dp"
+                    android:textColor="#767676"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size80dp"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:layout_below="@id/txt_device_limit"
+                    android:id="@+id/txt_note_device_limit"
+                    android:lineSpacingExtra="@dimen/size1dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/size70dp"
+                    android:layout_height="@dimen/size70dp"
+                    android:layout_marginTop="@dimen/size5dp"
+                    android:src="@drawable/ic_close"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/size26dp"
+                    android:id="@+id/img_close_note_device_limit"
+                    android:onClick="onCloseNoteDeviceLimit" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_device_limit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/txt_note_device_limit"
+                    android:layout_marginHorizontal="@dimen/size50dp"
+                    android:layout_marginVertical="@dimen/size25dp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

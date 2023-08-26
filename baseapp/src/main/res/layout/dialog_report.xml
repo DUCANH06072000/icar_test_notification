@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:blrfl="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <com.tatv.baseapp.view.tview.rounded.RoundedRelativeLayout
+            android:id="@+id/root_layout"
+            android:layout_width="@dimen/size560dp"
+            android:layout_height="wrap_content"
+            android:background="#03A9F4"
+            blrfl:cornerRadiusValue="@dimen/size20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size300dp"
+                    android:layout_marginTop="@dimen/size22dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/size24dp">
+                    <ProgressBar
+                        android:layout_width="@dimen/size100dp"
+                        android:layout_height="@dimen/size100dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/orange"/>
+
+                    <TextView
+                        android:id="@+id/txt_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size20dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="@string/text_compressing_data"
+                        android:textColor="#4F4F4F"
+                        android:textSize="@dimen/size18sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.tatv.baseapp.view.tview.rounded.RoundedRelativeLayout>
+    </RelativeLayout>
+</layout>

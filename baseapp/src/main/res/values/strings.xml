@@ -1,0 +1,9 @@
+<resources>
+    <string name="text_waiting_send_report">Đang gửi report</string>
+    <string name="text_send_report_success">Đã gửi report thành công lên hệ thống</string>
+    <string name="text_report_file_empty">Không tồn tại dữ liệu báo cáo</string>
+    <string name="text_send_report_failure">Gửi report không thành công, vui lòng thử lại sau</string>
+    <string name="text_duplicate_report">Bạn đã gửi report trước đó, vui lòng thử lại sau: %ds</string>
+    <string name="text_create_report_error">Có lỗi xảy ra khi tạo report, vui lòng liên hệ nhân viên CSKH của ICAR để được hỗ trợ</string>
+    <string name="text_compressing_data">Đang nén dữ liệu</string>
+</resources>

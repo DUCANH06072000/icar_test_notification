@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/size400dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="@dimen/size25dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_title_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size40dp"
+                android:layout_marginTop="@dimen/size30dp"
+                android:fontFamily="@font/svn_poppins_medium"
+                android:text="Đăng xuất khỏi Ownice C970?"
+                android:textColor="#1F2225"
+                android:textSize="@dimen/size20dp" />
+
+            <TextView
+                android:id="@+id/txt_note_title_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_title_device"
+                android:layout_marginLeft="@dimen/size40dp"
+                android:layout_marginTop="@dimen/size10dp"
+                android:layout_marginRight="@dimen/size60dp"
+                android:fontFamily="@font/svn_poppins_regular"
+                android:lineSpacingExtra="@dimen/size1dp"
+                android:text="Khi bạn đăng xuất khỏi thiết bị này, mọi quyền truy cập từ tài khoản của bạn vào thiết bị sẽ bị vô hiệu hóa"
+                android:textColor="#1F2225"
+                android:textSize="@dimen/size13dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/txt_note_title_device"
+                android:layout_marginRight="@dimen/size40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/size20dp"
+                android:layout_marginBottom="@dimen/size30dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:textColor="#1F2225"
+                    android:layout_marginLeft="@dimen/size40dp"
+                    android:fontFamily="@font/svn_poppins_medium"
+                    android:textSize="@dimen/size18dp"
+                    android:id="@+id/bt_cancel"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logout"
+                    android:textColor="#1F2225"
+                    android:layout_marginLeft="@dimen/size40dp"
+                    android:fontFamily="@font/svn_poppins_medium"
+                    android:textSize="@dimen/size18dp"
+                    android:id="@+id/bt_logout_device"
+                    />
+            </LinearLayout>
+            <ProgressBar
+                android:layout_width="@dimen/size40dp"
+                android:layout_height="@dimen/size40dp"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progressbar_color"
+                android:visibility="gone"
+                android:id="@+id/progress_bar_device_limit"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

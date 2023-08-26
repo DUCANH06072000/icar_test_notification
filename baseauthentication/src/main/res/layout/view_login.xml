@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:id="@+id/view_login"
+        android:visibility="gone"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/size385dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/size25dp"
+           >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size20dp"
+                    android:layout_marginTop="@dimen/size20dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="@string/login"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size24dp" />
+
+                <RelativeLayout
+                    android:id="@+id/view_mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size41dp"
+                    android:layout_below="@id/txt_login"
+                    android:layout_marginTop="@dimen/size6dp"
+                    android:paddingHorizontal="@dimen/size35dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#CCCCCC" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/size0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:onClick="onLoginQR">
+
+                            <TextView
+                                android:id="@+id/txt_login_qr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Mã QR"
+                                android:textColor="#000000"
+                                android:textSize="@dimen/size16dp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size1dp"
+                                android:id="@+id/view_login_qr"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginTop="@dimen/size5dp"
+                                android:background="#000000" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/size0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:onClick="onLoginSdt">
+                            <TextView
+                                android:id="@+id/txt_login_sdt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Số điện thoại"
+                                android:textColor="#CCCCCC"
+                                android:textSize="@dimen/size16dp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/size1dp"
+                                android:id="@+id/view_login_sdt"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginTop="@dimen/size5dp"
+                                android:background="#000000"
+                                android:visibility="gone" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txt_note_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_mode"
+                    android:layout_marginHorizontal="@dimen/size60dp"
+                    android:layout_marginTop="@dimen/size15dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="Bạn cần sử dụng tài khoản ICAR để đăng nhập vào ứng dụng"
+                    android:textColor="#767676"
+                    android:textSize="@dimen/size15dp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/txt_note_login_qr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_mode"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size60dp"
+                    android:layout_marginTop="@dimen/size15dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size1dp"
+                    android:maxLines="3"
+                    android:text="Quét mã QR bằng ICAR để đăng nhập"
+                    android:textColor="#767676"
+                    android:textSize="@dimen/size15dp" />
+
+                <LinearLayout
+                    android:id="@+id/view_sdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_note_login"
+                    android:layout_marginHorizontal="@dimen/size35dp"
+                    android:layout_marginTop="@dimen/size25dp"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/size33dp"
+                        android:layout_height="@dimen/size33dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/size10dp"
+                        android:padding="@dimen/size8dp"
+                        android:src="@drawable/ic_sdt" />
+
+                    <EditText
+                        android:id="@+id/edt_sdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size38dp"
+                        android:background="@drawable/bg_edt_login_icarm"
+                        android:hint="Số điện thoại"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:paddingVertical="@dimen/size8dp"
+                        android:paddingLeft="@dimen/size16dp"
+                        android:textColorHint="#969595"
+                        android:textSize="@dimen/size15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_sdt"
+                    android:layout_marginHorizontal="@dimen/size35dp"
+                    android:layout_marginTop="@dimen/size13dp"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/size33dp"
+                        android:layout_height="@dimen/size33dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/size10dp"
+                        android:padding="@dimen/size8dp"
+                        android:src="@drawable/ic_password" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/edt_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/size38dp"
+                            android:background="@drawable/bg_edt_login_icarm"
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:paddingVertical="@dimen/size8dp"
+                            android:paddingLeft="@dimen/size16dp"
+                            android:textColorHint="#969595"
+                            android:textSize="@dimen/size15dp" />
+
+                        <ImageView
+                            android:id="@+id/img_eye"
+                            android:layout_width="@dimen/size33dp"
+                            android:layout_height="@dimen/size33dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:onClick="onEye"
+                            android:paddingHorizontal="@dimen/size8dp"
+                            android:src="@drawable/ic_eye_close"
+                            android:layout_marginRight="@dimen/size8dp"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_forgot_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_password"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size8dp"
+                    android:layout_marginRight="@dimen/size46dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:maxLines="3"
+                    android:onClick="onForgotPassword"
+                    android:text="@string/forgot_password"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size12dp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/bt_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_forgot_password"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size30dp"
+                    android:background="@drawable/bg_bt_login"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_semibold"
+                    android:includeFontPadding="false"
+                    android:maxLines="3"
+                    android:onClick="onConfirmLogin"
+                    android:paddingHorizontal="@dimen/size30dp"
+                    android:paddingVertical="@dimen/size15dp"
+                    android:text="@string/login"
+                    android:textColor="#FFFFFF"
+                    android:textSize="@dimen/size15dp"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/txt_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bt_confirm"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="@dimen/size22dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/svn_poppins_regular"
+                    android:gravity="center"
+                    android:maxLines="3"
+                    android:onClick="onSignup"
+                    android:text="@string/register"
+                    android:textColor="#1F2225"
+                    android:textSize="@dimen/size12dp" />
+
+                <ImageView
+                    android:id="@+id/img_qr_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/txt_signup"
+                    android:layout_below="@id/txt_note_login_qr"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/size32dp"
+                    android:layout_marginBottom="@dimen/size12dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_note_login_qr"
+                    android:layout_above="@id/txt_signup"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:id="@+id/bt_get_qr_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_bt_login"
+                        android:fontFamily="@font/svn_poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:onClick="onGetQRCode"
+                        android:paddingHorizontal="@dimen/size30dp"
+                        android:paddingVertical="@dimen/size15dp"
+                        android:text="Tạo lại mã"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/size15dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_login"
+                    android:layout_width="@dimen/size40dp"
+                    android:layout_height="@dimen/size40dp"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/progressbar_color"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

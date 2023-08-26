@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/size10dp">
+        <ImageView
+            android:id="@+id/img_device"
+            android:layout_width="@dimen/size60dp"
+            android:layout_height="@dimen/size30dp"
+            android:src="@drawable/ic_device"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size13dp"
+            android:text="Ownice C970"
+            android:layout_toRightOf="@id/img_device"
+            android:layout_marginLeft="@dimen/size15dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/svn_poppins_medium"
+            android:layout_centerVertical="true"
+            android:id="@+id/txt_device"/>
+
+        <TextView
+            android:id="@+id/bt_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_bt_login"
+            android:fontFamily="@font/svn_poppins_semibold"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/size22dp"
+            android:paddingVertical="@dimen/size11dp"
+            android:text="@string/logout"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/size13dp" />
+</RelativeLayout>

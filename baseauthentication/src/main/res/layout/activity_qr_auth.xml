@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_login" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/size460dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:cardCornerRadius="@dimen/size25dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/size40dp"
+                    android:layout_height="@dimen/size40dp"
+                    android:layout_marginStart="@dimen/size20dp"
+                    android:layout_marginTop="@dimen/size20dp"
+                    android:layout_marginEnd="@dimen/size20dp"
+                    android:layout_marginBottom="@dimen/size20dp"
+                    android:padding="@dimen/size4dp"
+                    android:src="@drawable/back_black" />
+
+                <ImageView
+                    android:id="@+id/txt_title"
+                    android:layout_width="@dimen/size194dp"
+                    android:layout_height="@dimen/size124dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size30dp"
+                    android:layout_marginTop="@dimen/size20dp"
+                    android:src="@drawable/ic_header_logo" />
+
+                <TextView
+                    android:id="@+id/txt_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/size40dp"
+                    android:layout_marginTop="@dimen/size16dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lineSpacingExtra="@dimen/size2dp"
+                    android:maxLines="3"
+                    android:text="@string/qr_description"
+                    android:textColor="#767676"
+                    android:textSize="@dimen/size14sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size240dp"
+                    android:layout_marginBottom="@dimen/size20dp"
+                    android:layout_below="@id/txt_description">
+
+                    <ImageView
+                        android:id="@+id/img_qrcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <TextView
+                        android:id="@+id/btn_recreate_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/bg_btn_login"
+                        android:fontFamily="@font/svn_poppins_semibold"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="@dimen/size20dp"
+                        android:paddingVertical="@dimen/size16dp"
+                        android:text="@string/recreate_qr"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/size11sp"
+                        android:visibility="invisible" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="@dimen/size40dp"
+                        android:layout_height="@dimen/size40dp"
+                        android:layout_centerInParent="true"
+                        android:indeterminateDrawable="@drawable/progressbar_color" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

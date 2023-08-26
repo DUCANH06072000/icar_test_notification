@@ -10,7 +10,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "icar_notification"
 include ':app'
+include 'baseapp'
+include 'baseauthentication'

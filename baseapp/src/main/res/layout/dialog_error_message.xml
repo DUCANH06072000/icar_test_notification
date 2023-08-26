@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="MissingDefaultResource">
+
+        <RelativeLayout
+            android:layout_width="@dimen/size430dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_popup">
+
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_width="@dimen/size75dp"
+                android:layout_height="@dimen/size75dp"
+                android:layout_marginLeft="@dimen/size20dp"
+                android:layout_marginTop="@dimen/size42dp"
+                android:src="@drawable/ic_error" />
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/size20dp"
+                android:layout_marginTop="@dimen/size35dp"
+                android:layout_toRightOf="@id/img_icon"
+                android:fontFamily="@font/svn_poppins_semibold"
+                android:text="Thông báo"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/size22dp" />
+
+            <TextView
+                android:id="@+id/txt_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/size20dp"
+                android:layout_toRightOf="@id/img_icon"
+                android:fontFamily="@font/svn_poppins_regular"
+                android:text=""
+                android:textColor="#CCCCCC"
+                android:textSize="@dimen/size18dp" />
+
+            <TextView
+                android:id="@+id/bt_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/size15dp"
+                android:layout_marginRight="@dimen/size5dp"
+                android:layout_marginBottom="@dimen/size20dp"
+                android:fontFamily="@font/svn_poppins_medium"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/size22dp"
+                android:paddingVertical="@dimen/size13dp"
+                android:text="Thử lại"
+                android:textColor="#FFA72A"
+                android:textSize="@dimen/size18dp" />
+
+            <TextView
+                android:id="@+id/bt_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_content"
+                android:layout_marginTop="@dimen/size15dp"
+                android:layout_marginBottom="@dimen/size20dp"
+                android:layout_toLeftOf="@id/bt_retry"
+                android:fontFamily="@font/svn_poppins_medium"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="@dimen/size22dp"
+                android:paddingVertical="@dimen/size13dp"
+                android:text="Đóng"
+                android:textColor="#ffff"
+                android:textSize="@dimen/size18dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
