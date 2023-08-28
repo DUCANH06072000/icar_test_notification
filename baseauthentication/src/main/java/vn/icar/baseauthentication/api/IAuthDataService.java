@@ -15,7 +15,7 @@ import vn.icar.baseauthentication.data.signup.BodySignUp;
 import vn.icar.baseauthentication.data.signup.BodyverifyOTP;
 import vn.icar.baseauthentication.forgot_password.BodyForgotPassword;
 import vn.icar.baseauthentication.forgot_password.BodySendOTPForgotPassword;
-import vn.icar.baseauthentication.forgot_password.BodyverifyOTPForgotPassword;
+import vn.icar.baseauthentication.forgot_password.BodyVerifyOTPForgotPassword;
 
 /**
  * Created by tatv on 11/10/2022.
@@ -49,7 +49,7 @@ public interface IAuthDataService {
     Call<DataServer> sendOPTForgotPassword(@Body BodySendOTPForgotPassword sendOTP);
 
     @POST("auth/lost-password/verify-otp")
-    Call<DataServer> verifyOPTForgotPassword(@Body BodyverifyOTPForgotPassword bodyverifyOTPForgotPassword);
+    Call<DataServer> verifyOPTForgotPassword(@Body BodyVerifyOTPForgotPassword bodyverifyOTPForgotPassword);
 
     @POST("auth/lost-password/create-new-password")
     Call<DataServer> getForgotPassword(@Body BodyForgotPassword bodyForgotPassword);

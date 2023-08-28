@@ -92,4 +92,17 @@ public class BodyLogin {
     public void setFcmToken(String fcmToken) {
         this.fcmToken = fcmToken;
     }
+
+    @Override
+    public String toString() {
+        return "BodyLogin{" +
+                "deviceName='" + deviceName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", appId='" + appId + '\'' +
+                ", appVersion='" + appVersion + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                ", fcmToken='" + fcmToken + '\'' +
+                '}';
+    }
 }

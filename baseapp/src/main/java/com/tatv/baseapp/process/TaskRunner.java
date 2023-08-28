@@ -1,4 +1,4 @@
-package com.tatv.baseapp.utils.process;
+package com.tatv.baseapp.process;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -24,17 +24,6 @@ public class TaskRunner {
                     callback.onComplete(result);
 
                 });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public <R> void executeAsync(Callable<R> callable) {
-        executor.execute(() -> {
-            final R result;
-            try {
-                result = callable.call();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,7 +1,5 @@
 package com.tatv.baseapp.utils.tpms;
 
-import android.util.Log;
-
 import com.tatv.baseapp.utils.string.StringUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -210,7 +208,6 @@ public class ByteHelper {
             for (int i = 0; i < length - 1; i = i + 2) {
                 checksum ^= strHexToInt(msg.substring(i, i + 2));
             }
-
 
             return StringUtils.fixedLengthString(Integer.toHexString(checksum), 2).toUpperCase();
         } catch (Exception e) {

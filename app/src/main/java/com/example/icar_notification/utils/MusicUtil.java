@@ -22,8 +22,6 @@ public class MusicUtil {
 
     private DataStore dataStore;
     private DataMusicStore dataMusicStore;
-//    ActivityManager activityManager = context.getSystemService(Context.ACTIVITY_SERVICE);
-//    private List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfos =
 
     public MusicUtil(MusicStateListener listener, Context context) {
         this.listener = listener;

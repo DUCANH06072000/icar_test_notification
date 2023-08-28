@@ -1,7 +1,6 @@
 package vn.icar.baseauthentication.data.signup;
 
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.tatv.baseapp.api.ApiService;

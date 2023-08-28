@@ -21,6 +21,7 @@ import com.tatv.baseapp.utils.network.ConnectivityListener;
  */
 
 public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatActivity implements BaseView, ConnectivityListener {
+    public static final String TAG="BaseActivity";
     private final IntentFilter filter = new IntentFilter();
     private BroadcastReceiver receiver;
     public Context context;
@@ -43,6 +44,8 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
         context = this;
         instance = this;
         preference = new BaseSharedPreference(context);
+        connectivity = new Connectivity(context);
+        connectivity.addChildListener(new Connectivity.ConnectivityChildListener(TAG,this));
         addActionFilter();
         onInitial();
     }
@@ -52,6 +55,9 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
         super.onDestroy();
         if (null != receiver) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        }
+        if(connectivity != null){
+            connectivity.removeChildListener(TAG);
         }
     }
 

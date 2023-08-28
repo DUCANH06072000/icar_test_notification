@@ -18,7 +18,6 @@ public abstract class BaseScreenService<V extends ViewDataBinding> extends BaseS
     @Override
     public void onCreate() {
         super.onCreate();
-        init();
     }
 
     /**

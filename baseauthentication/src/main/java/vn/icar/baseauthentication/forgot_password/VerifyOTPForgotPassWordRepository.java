@@ -1,7 +1,6 @@
 package vn.icar.baseauthentication.forgot_password;
 
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.tatv.baseapp.api.ApiService;
@@ -19,7 +18,7 @@ public class VerifyOTPForgotPassWordRepository {
     public VerifyOTPForgotPassWordRepository(OTPForgotPasswordListener OTPListener){
         this.OTPListener = OTPListener;
     }
-    public  void  verifyOTPForgotPassword(BodyverifyOTPForgotPassword bodyverifyOTPForgotPassword, Context context,String url){
+    public  void  verifyOTPForgotPassword(BodyVerifyOTPForgotPassword bodyverifyOTPForgotPassword, Context context, String url){
         IAuthDataService dataService = ApiService.getService(context, url, IAuthDataService.class);
         Call<DataServer> call = dataService.verifyOPTForgotPassword(bodyverifyOTPForgotPassword);
         call.enqueue(new Callback<DataServer>() {

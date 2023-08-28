@@ -1,16 +1,12 @@
 package vn.icar.baseauthentication.data.login;
 
 
-import android.app.Activity;
 import android.content.Context;
 
 
 import com.tatv.baseapp.api.ApiService;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,12 +31,12 @@ public class TrialRepository {
                     loginListener.dataLogin(response.body(), response.code(), "", null);
                 } else {
                     try {
-                        String message="";
-                        if (response.errorBody()!=null){
+                        String message = "";
+                        if (response.errorBody() != null) {
                             JSONObject jObjError = new JSONObject(response.errorBody().string());
                             message = jObjError.getString("message");
-                        }else if (response.body()!=null){
-                            message=response.body().getMessage();
+                        } else if (response.body() != null) {
+                            message = response.body().getMessage();
                         }
                         loginListener.dataLogin(null, response.code(), message, null);
 

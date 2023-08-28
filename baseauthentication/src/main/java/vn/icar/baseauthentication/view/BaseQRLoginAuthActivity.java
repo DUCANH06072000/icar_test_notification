@@ -1,30 +1,22 @@
 package vn.icar.baseauthentication.view;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.Layout;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.tatv.baseapp.api.ApiService;
 import com.tatv.baseapp.utils.network.Connectivity;
 import com.tatv.baseapp.utils.qr.QRUtils;
 import com.tatv.baseapp.utils.ui.UiUtils;
@@ -38,7 +30,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 
-import vn.icar.baseauthentication.BuildConfig;
 import vn.icar.baseauthentication.R;
 import vn.icar.baseauthentication.adapter.DeviceAdapter;
 import vn.icar.baseauthentication.data.login.BodyLogin;
@@ -62,7 +53,7 @@ import vn.icar.baseauthentication.data.signup.VerifyOTPRepository;
 import vn.icar.baseauthentication.databinding.ActivityQrLoginAuthBinding;
 import vn.icar.baseauthentication.forgot_password.BodyForgotPassword;
 import vn.icar.baseauthentication.forgot_password.BodySendOTPForgotPassword;
-import vn.icar.baseauthentication.forgot_password.BodyverifyOTPForgotPassword;
+import vn.icar.baseauthentication.forgot_password.BodyVerifyOTPForgotPassword;
 import vn.icar.baseauthentication.forgot_password.ForgotPasswordListener;
 import vn.icar.baseauthentication.forgot_password.ForgotPasswordRepository;
 import vn.icar.baseauthentication.forgot_password.OTPForgotPasswordListener;
@@ -178,7 +169,7 @@ public abstract class BaseQRLoginAuthActivity extends BaseAuthActivity<ActivityQ
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (binding.layoutForgotPassword.edtOtp.getText().length() == 6) {
                     if (mCheckOTPForgotPassword) {
-                        BodyverifyOTPForgotPassword bodyverifyOTPForgotPassword = new BodyverifyOTPForgotPassword(binding.layoutForgotPassword.edtSdt.getText().toString().trim(), binding.layoutForgotPassword.edtOtp.getText().toString().trim(), getAppId());
+                        BodyVerifyOTPForgotPassword bodyverifyOTPForgotPassword = new BodyVerifyOTPForgotPassword(binding.layoutForgotPassword.edtSdt.getText().toString().trim(), binding.layoutForgotPassword.edtOtp.getText().toString().trim(), getAppId());
                         VerifyOTPForgotPassWordRepository verifyOTPForgotPassWordRepository = new VerifyOTPForgotPassWordRepository(BaseQRLoginAuthActivity.this);
                         verifyOTPForgotPassWordRepository.verifyOTPForgotPassword(bodyverifyOTPForgotPassword, context, getUrlApi());
                     }
@@ -927,7 +918,7 @@ public abstract class BaseQRLoginAuthActivity extends BaseAuthActivity<ActivityQ
                 dialog.dismiss();
             }
         }).setContent(message)
-                .showBottomCancel(true)
+                .showBottomCancel(false)
                 .setTextBottomRetry("Ok")
                 .show();
     }

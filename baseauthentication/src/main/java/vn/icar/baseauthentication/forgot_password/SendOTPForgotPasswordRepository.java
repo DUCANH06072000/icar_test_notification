@@ -2,7 +2,6 @@ package vn.icar.baseauthentication.forgot_password;
 
 
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.tatv.baseapp.api.ApiService;

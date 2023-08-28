@@ -90,23 +90,4 @@ public class JsonUtils {
     public static  <T> String getJsonFromObj(T obj){
         return new Gson().toJson(obj);
     }
-
-
-    /**
-     * Check json valid
-     * */
-    public static boolean isJSONValid(String test) {
-        try {
-            new JSONObject(test);
-        } catch (JSONException ex) {
-            // edited, to include @Arthur's comment
-            // e.g. in case JSONArray is valid as well...
-            try {
-                new JSONArray(test);
-            } catch (JSONException ex1) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

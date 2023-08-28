@@ -15,7 +15,6 @@ import com.tatv.baseapp.api.ApiService;
 import com.tatv.baseapp.api.IBaseDataService;
 import com.tatv.baseapp.api.WSConfig;
 import com.tatv.baseapp.data.shared.BaseSharedPreference;
-import com.tatv.baseapp.listener.ResponseCallback;
 import com.tatv.baseapp.utils.json.JsonUtils;
 import com.tatv.baseapp.utils.system.StorageUtil;
 
@@ -30,7 +29,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

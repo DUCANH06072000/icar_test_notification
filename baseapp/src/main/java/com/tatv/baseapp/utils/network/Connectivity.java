@@ -64,13 +64,17 @@ public class Connectivity {
         @Override
         public void onAvailable(Network network) {
             // network available
-            notifyNetworkTypeChanged(getNetworkType());
+            for (ConnectivityChildListener listener : listeners) {
+                listener.getListener().onNetworkTypeChanged(getNetworkType());
+            }
         }
 
         @Override
         public void onLost(Network network) {
             // network unavailable
-            notifyNetworkTypeChanged(-1);
+            for (ConnectivityChildListener listener : listeners) {
+                listener.getListener().onNetworkTypeChanged(-1);
+            }
         }
     };
 
@@ -127,18 +131,13 @@ public class Connectivity {
         }
     }
 
-
+    /**
+     * Gửi thông báo đến các listener lắng nghe
+     */
     private void notifyConnectivityChanged(boolean connected, long ping) {
-        for(int i = 0; i < listeners.size(); i++){
-            listeners.get(i).getListener().onConnectivityChanged(connected);
-            listeners.get(i).getListener().onPingChanged(ping);
-        }
-    }
-
-
-    private void notifyNetworkTypeChanged(int type) {
-        for(int i = 0; i < listeners.size(); i++){
-            listeners.get(i).getListener().onNetworkTypeChanged(type);
+        for (ConnectivityChildListener listener : listeners) {
+            listener.getListener().onConnectivityChanged(connected);
+            listener.getListener().onPingChanged(ping);
         }
     }
 

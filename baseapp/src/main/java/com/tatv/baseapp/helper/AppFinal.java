@@ -11,6 +11,8 @@ public class AppFinal {
         public static final int BAR = 0;
         public static final int PSI = 1;
         public static final int KPA = 2;
+        public static final int C = 0;
+        public static final int F = 1;
 
         public static final int CELSIUS = 0;
         public static final int FAHRENHEIT = 1;

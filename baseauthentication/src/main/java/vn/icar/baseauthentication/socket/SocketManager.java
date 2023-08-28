@@ -200,7 +200,9 @@ public class SocketManager {
             timeoutCdt = new CountDownTimer(8000, 1000) {
                 @Override
                 public void onTick(long l) {
+
                 }
+
                 @Override
                 public void onFinish() {
                     if(listener != null) listener.onConnectTimeout();

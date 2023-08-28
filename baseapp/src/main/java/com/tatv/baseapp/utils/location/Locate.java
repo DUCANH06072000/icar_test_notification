@@ -61,6 +61,19 @@ public class Locate implements GoogleApiClient.ConnectionCallbacks,
     }
 
     /**
+     * Đăng ký lắng nghe sự kiện thay đổi vị trí từ google service
+     * */
+    @SuppressLint("MissingPermission")
+    public Locate registerFuelLocate(LocateListener listener) {
+        if(this.listener == null){
+            addGoogleServiceRequestLocationUpdates();
+            satellite.registerSatelliteListener(this);
+        }
+        this.listener = listener;
+        return this;
+    }
+
+    /**
      * Thêm lắng nghe sự kiện thay đổi từ gps
      * */
     @SuppressLint("MissingPermission")

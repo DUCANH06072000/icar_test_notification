@@ -31,6 +31,7 @@ import com.example.icar_notification.listener.SelectAppListener;
 import com.example.icar_notification.model.AppDevice;
 import com.example.icar_notification.model.AppStore;
 import com.example.icar_notification.service.NotificationListener;
+import com.example.icar_notification.service.NotificationService;
 import com.example.icar_notification.share.DataMusicStore;
 import com.example.icar_notification.share.DataStore;
 import com.example.icar_notification.utils.MusicUtil;
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
             Log.e("Số lượng ứng dụng trong kho", dataStore.loadData().size() + "");
         }
+        runService();
+    }
+
+    private void runService() {
+        startForegroundService(new Intent(this, NotificationService.class));
     }
 
     // Kiểm tra xem dịch vụ NotificationListenerService đã được bật và có quyền truy cập thông báo hay không

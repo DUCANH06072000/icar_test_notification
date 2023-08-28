@@ -4,11 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class BodyverifyOTPForgotPassword {
+public class BodyVerifyOTPForgotPassword {
 
-@SerializedName("username")
-@Expose
-private String username;
+    @SerializedName("username")
+    @Expose
+    private String username;
     @SerializedName("otp")
     @Expose
     private String otp;
@@ -16,7 +16,7 @@ private String username;
     @Expose
     private String appId;
 
-    public BodyverifyOTPForgotPassword(String username, String otp, String appId) {
+    public BodyVerifyOTPForgotPassword(String username, String otp, String appId) {
         this.username = username;
         this.otp = otp;
         this.appId = appId;
@@ -39,13 +39,12 @@ private String username;
     }
 
     public String getUsername() {
-return username;
-}
+        return username;
+    }
 
-public void setUsername(String username) {
-this.username = username;
-}
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 
 }

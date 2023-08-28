@@ -21,24 +21,32 @@ public class BaseSharedPreference {
 
     /**
      * Trả về thể hiện của shared preference
-     * */
+     */
     public SharedPreferences getSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     /**
      * Xóa toàn bộ dữ liệu
-     * */
-    public void clear(){
+     */
+    public static final String PREF_APP_ID = "pref_app_id";
+
+    public void clear() {
+        //đọc ra appId và mac
+        String appId = getSharedPreferences().getString(PREF_APP_ID, "");
+        //xóa toàn bộ dữ liệu
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.clear();
+        editor.apply();
+        //lưu lại appId và mac
+        editor.putString(PREF_APP_ID, appId);
         editor.apply();
     }
 
 
     /**
      * get - set ngôn ngữ
-     * */
+     */
     public static final String PREF_LANGUAGE = "pref_language";
 
     public String getLanguage() {
@@ -52,10 +60,9 @@ public class BaseSharedPreference {
     }
 
 
-
     /**
      * get - set token
-     * */
+     */
     public static final String PREF_TOKEN = "pref_token";
 
     public String getToken() {
@@ -70,7 +77,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set refresh token
-     * */
+     */
     public static final String PREF_REFRESH_TOKEN = "pref_refresh_token";
 
     public String getRefreshToken() {
@@ -85,7 +92,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set subId(userId cũ)
-     * */
+     */
     public static final String PREF_SUB_ID = "pref_sub_id";
 
     public String getSubId() {
@@ -100,7 +107,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set userId
-     * */
+     */
     public static final String PREF_USER_ID = "pref_user_id";
 
     public String getUserId() {
@@ -115,7 +122,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set the last time to send report
-     * */
+     */
     public static final String PREF_LAST_TIME_REPORT = "pref_last_time_report";
 
     public long getLastTimeReport() {
@@ -130,7 +137,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set time token expiry
-     * */
+     */
     public static final String PREF_TIME_TOKEN_EXP = "pref_time_token_exp";
 
     public long getTimeTokenExp() {
@@ -146,7 +153,7 @@ public class BaseSharedPreference {
 
     /**
      * @param type : 0 - Bar, 1 - Psi, 2 - Kpa
-     * */
+     */
     public static final String KEY_TIRE_PRESS_UNIT = "pref_tire_press_unit";
 
     public void setPressUnit(int type) {
@@ -162,7 +169,7 @@ public class BaseSharedPreference {
 
     /**
      * @param type : 0 - °C, 1 - °F
-     * */
+     */
     public static final String KEY_TIRE_TEMP_UNIT = "pref_tire_temp_unit";
 
     public void setTempUnit(int type) {
@@ -178,7 +185,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set windows overlay
-     * */
+     */
     public static final String KEY_OVERLAY = "pref_overlay";
 
     public void setOverlay(boolean enabled) {
@@ -189,7 +196,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set sound alert
-     * */
+     */
     public static final String KEY_SOUND_ALERT = "pref_sound_alert";
 
     public boolean getOverlay() {
@@ -204,7 +211,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set vibration alert
-     * */
+     */
     public static final String KEY_VIBRATION_ALERT = "pref_vibration_alert";
 
     public boolean getSoundAlert() {
@@ -223,10 +230,9 @@ public class BaseSharedPreference {
     }
 
 
-
     /**
      * get - set tire press max
-     * */
+     */
     public static final String KEY_TIRE_PRESS_MAX = "pref_tire_press_max_v2";
 
     public void setPressMax(float value) {
@@ -240,11 +246,11 @@ public class BaseSharedPreference {
     }
 
 
-
     /**
      * get - set tire press min
-     * */
+     */
     public static final String KEY_TIRE_PRESS_MIN = "pref_tire_press_min_v2";
+
     public void setPressMin(float value) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putFloat(KEY_TIRE_PRESS_MIN, value);
@@ -257,7 +263,7 @@ public class BaseSharedPreference {
 
     /**
      * get - set tire temp max
-     * */
+     */
     public static final String KEY_TIRE_TEMP_MAX = "pref_tire_temp_max_v2";
 
     public void setTempMax(int value) {
@@ -268,5 +274,19 @@ public class BaseSharedPreference {
 
     public int getTempMax() {
         return getSharedPreferences().getInt(KEY_TIRE_TEMP_MAX, 70);
+    }
+
+    /**
+     * get - set thiết bị bluetooth
+     * */
+    public static final String KEY_DEVICE_BLUETOOTH = "pref_device_bluetooth";
+    public void setDeviceBluetooth(String device){
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putString(KEY_DEVICE_BLUETOOTH, device);
+        editor.apply();
+    }
+
+    public String getDeviceBluetooth(){
+        return getSharedPreferences().getString(KEY_DEVICE_BLUETOOTH, "");
     }
 }

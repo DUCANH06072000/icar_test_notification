@@ -15,7 +15,7 @@ import com.tatv.baseapp.utils.ui.UiUtils;
 public class ErrorDialog extends BaseDialog<DialogErrorMessageBinding> {
     private DialogErrorListener listener;
     private String title, content,btRetry;
-    private boolean showBottomCancel=true;
+    private boolean showBottomCancel=false;
 
     private static ErrorDialog instance;
 

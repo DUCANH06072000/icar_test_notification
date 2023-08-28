@@ -1,6 +1,16 @@
-package com.tatv.baseapp.utils.speed;
+package com.tatv.baseapp.utils.location;
 
-public class SpeedUtils {
+public class SpeedFilter {
+    private static SpeedFilter instance;
+
+    public static SpeedFilter getInstance(){
+        if(instance == null){
+            instance = new SpeedFilter();
+        }
+
+        return instance;
+    }
+
     /**
      * Bộ lọc tốc độ
      * @param speed double

@@ -6,4 +6,7 @@ public class ApiService {
     public static <T> T getService(Context context, String url, Class<T> type) {
         return ApiRetrofitClient.getClient(context, url).create(type);
     }
+    public static <T> T getCustomService(Context context, String url, String appVersion, String buildType, Class<T> type) {
+        return ApiRetrofitClient.getCustomClient(context, url, appVersion, buildType).create(type);
+    }
 }

@@ -126,10 +126,10 @@ public class QREvent {
         }
 
         public String getHintAccount() {
-            if (account==null){
+            if (account == null) {
                 return "";
-            }else {
-                if(account.length() >= 10){
+            } else {
+                if (account.length() >= 10) {
                     account = account.substring(0, 7);
                     account += "***";
                 }

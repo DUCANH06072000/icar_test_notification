@@ -3,7 +3,6 @@ package com.tatv.baseapp.utils.location;
 import android.location.Location;
 
 import com.tatv.baseapp.utils.log.LogUtils;
-import com.tatv.baseapp.utils.speed.SpeedUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +11,7 @@ public class ILocation extends Location {
     public int DISTANCE_CLOSE_TOGETHER = 50;
     public int SAME_LOCATION_ANGEL_EPSILON = 10;
     public int PASSED_A_LOCATION_ANGEL_EPSILON = 50;
+    public int ALTITUDE_DEFAULT = -999;
 
     private Location location;
     private long time;
@@ -40,7 +40,7 @@ public class ILocation extends Location {
      * */
     private void init(Location location){
         this.location = location;
-        altitude = location.hasAltitude() ? location.getAltitude() : -999;
+        altitude = location.hasAltitude() ? location.getAltitude() : ALTITUDE_DEFAULT;
         time = System.currentTimeMillis();
     }
 
@@ -100,8 +100,21 @@ public class ILocation extends Location {
         return this;
     }
 
+    /**
+     * Lọc location
+     * */
     public ILocation filter(){
-        setSpeed(new SpeedUtils().filter(getSpeed()));
+        ILocation filter = IFilter.getInstance().getLocation(this);
+        setBearing(filter.getBearing());
+        setSpeed(filter.getSpeed());
+        return this;
+    }
+
+    /**
+     * Lọc tốc độ
+     * */
+    public ILocation speedFilter(){
+        setSpeed(SpeedFilter.getInstance().filter(getSpeed()));
         return this;
     }
 

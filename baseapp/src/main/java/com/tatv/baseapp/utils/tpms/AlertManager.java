@@ -4,6 +4,8 @@ import static android.content.Context.VIBRATOR_SERVICE;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
 
@@ -19,11 +21,11 @@ public class AlertManager {
     private static final String TAG = "AlertManager";
     /**
      * Singleton
-     * */
+     */
     private static AlertManager instance;
 
-    public static AlertManager getInstance(){
-        if(instance == null){
+    public static AlertManager getInstance() {
+        if (instance == null) {
             instance = new AlertManager();
         }
         return instance;
@@ -31,7 +33,7 @@ public class AlertManager {
 
     /**
      * Khởi tạo
-     * */
+     */
     private Context context;
     private TireUtil tireUtil;
     private BaseSharedPreference pref;
@@ -39,7 +41,7 @@ public class AlertManager {
     private Vibrator vibrator;
     double lastTimeAlert = 0;
 
-    public void init(Context context){
+    public void init(Context context) {
         this.context = context;
         vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
         pref = new BaseSharedPreference(context);
@@ -48,49 +50,49 @@ public class AlertManager {
 
     /**
      * Làm mới kiểm tra cảnh báo
-     * */
-    public void refresh(Tire tire){
+     */
+    public void refresh(Tire tire) {
         // Đối với ngôn ngữ tiếng việt thì cảnh báo tiếng việt từng lốp
-        if(pref.getLanguage().equals("vi")){
-            if(tireUtil.isTirePressHighWarning(tire.getPress())){
-                if(System.currentTimeMillis() - lastTimeAlert > 1000 * 4){
-                    if(pref.getSoundAlert()){
+        if (pref.getLanguage().equals("vi")) {
+            if (tireUtil.isTirePressHighWarning(tire.getPress())) {
+                if (System.currentTimeMillis() - lastTimeAlert > 1000 * 4) {
+                    if (pref.getSoundAlert()) {
                         startSoundAlert(tire.getId(), 1);
                     }
-                    if(pref.getVibrationAlert()){
+                    if (pref.getVibrationAlert()) {
                         startVibrationAlert();
                     }
                     lastTimeAlert = System.currentTimeMillis();
                 }
-            }else if(tireUtil.isTirePressLowWarning(tire.getPress())){
-                if(System.currentTimeMillis() - lastTimeAlert > 1000 * 4){
-                    if(pref.getSoundAlert()){
+            } else if (tireUtil.isTirePressLowWarning(tire.getPress())) {
+                if (System.currentTimeMillis() - lastTimeAlert > 1000 * 4) {
+                    if (pref.getSoundAlert()) {
                         startSoundAlert(tire.getId(), -1);
                     }
-                    if(pref.getVibrationAlert()){
+                    if (pref.getVibrationAlert()) {
                         startVibrationAlert();
                     }
                     lastTimeAlert = System.currentTimeMillis();
                 }
-            }else if(tireUtil.isTireTempWarning(tire.getTemp())){
-                if(System.currentTimeMillis() - lastTimeAlert > 1000 * 4){
-                    if(pref.getSoundAlert()){
+            } else if (tireUtil.isTireTempWarning(tire.getTemp())) {
+                if (System.currentTimeMillis() - lastTimeAlert > 1000 * 4) {
+                    if (pref.getSoundAlert()) {
                         startSoundAlert();
                     }
-                    if(pref.getVibrationAlert()){
+                    if (pref.getVibrationAlert()) {
                         startVibrationAlert();
                     }
                     lastTimeAlert = System.currentTimeMillis();
                 }
             }
-        }else {
+        } else {
             // Đối với ngoại ngữ cảnh báo didi
-            if(tireUtil.isTirePressWarning(tire.getPress()) || tireUtil.isTireTempWarning(tire.getTemp())){
-                if(System.currentTimeMillis() - lastTimeAlert > 1000 * 4){
-                    if(pref.getSoundAlert()){
+            if (tireUtil.isTirePressWarning(tire.getPress()) || tireUtil.isTireTempWarning(tire.getTemp())) {
+                if (System.currentTimeMillis() - lastTimeAlert > 1000 * 4) {
+                    if (pref.getSoundAlert()) {
                         startSoundAlert();
                     }
-                    if(pref.getVibrationAlert()){
+                    if (pref.getVibrationAlert()) {
                         startVibrationAlert();
                     }
                     lastTimeAlert = System.currentTimeMillis();
@@ -101,9 +103,10 @@ public class AlertManager {
 
     /**
      * Cảnh báo âm thanh
-     * */
-    public void startSoundAlert(){
-        if(mediaPlayer != null){
+     */
+    public void startSoundAlert() {
+        Log.e("xxxxx", "startSoundAlert");
+        if (mediaPlayer != null) {
             mediaPlayer.release();
         }
         mediaPlayer = MediaPlayer.create(context, R.raw.didi);
@@ -112,49 +115,49 @@ public class AlertManager {
 
     /**
      * Cảnh báo theo từng lốp
-     * */
-    public void startSoundAlert(int id, int status){
-        if(mediaPlayer != null){
+     */
+    public void startSoundAlert(int id, int status) {
+        if (mediaPlayer != null) {
             mediaPlayer.release();
         }
-        switch (id){
+        switch (id) {
             case 1:
-                if(status == 1){
+                if (status == 1) {
                     mediaPlayer = MediaPlayer.create(context, R.raw.left_front_tire_hight);
-                }else {
+                } else {
                     mediaPlayer = MediaPlayer.create(context, R.raw.left_front_tire_low);
                 }
                 break;
             case 2:
-                if(status == 1){
+                if (status == 1) {
                     mediaPlayer = MediaPlayer.create(context, R.raw.right_front_tire_hight);
-                }else {
+                } else {
                     mediaPlayer = MediaPlayer.create(context, R.raw.right_front_tire_low);
                 }
                 break;
             case 3:
-                if(status == 1){
+                if (status == 1) {
                     mediaPlayer = MediaPlayer.create(context, R.raw.left_back_tire_hight);
-                }else {
+                } else {
                     mediaPlayer = MediaPlayer.create(context, R.raw.left_back_tire_low);
                 }
                 break;
             case 4:
-                if(status == 1){
+                if (status == 1) {
                     mediaPlayer = MediaPlayer.create(context, R.raw.right_back_tire_hight);
-                }else {
+                } else {
                     mediaPlayer = MediaPlayer.create(context, R.raw.right_back_tire_low);
                 }
                 break;
         }
-        if(mediaPlayer != null){
+        if (mediaPlayer != null) {
             mediaPlayer.start();
         }
     }
 
-    public void stopSoundAlert(){
+    public void stopSoundAlert() {
         try {
-            if(mediaPlayer != null && mediaPlayer.isPlaying()){
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
                 mediaPlayer.prepare();
             }
@@ -166,15 +169,19 @@ public class AlertManager {
 
     /**
      * Cảnh báo rung
-     * */
-    public void startVibrationAlert(){
+     */
+    public void startVibrationAlert() {
         if (vibrator.hasVibrator()) {
-            long[] pattern = { 100, 100, 100, 1000 };
-            vibrator.vibrate(pattern, 1);
+            long[] pattern = {100, 100, 100, 1000, 100, 100, 100, 1000};
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createWaveform(pattern, -1));
+            } else {
+                vibrator.vibrate(pattern, -1);
+            }
         }
     }
 
-    public void stopVibrationAlert(){
+    public void stopVibrationAlert() {
         if (vibrator.hasVibrator()) {
             vibrator.cancel();
         }

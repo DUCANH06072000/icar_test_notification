@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/size10dp">
+>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/size10dp">
         <ImageView
             android:id="@+id/img_device"
             android:layout_width="@dimen/size60dp"
@@ -35,4 +39,5 @@
             android:text="@string/logout"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/size13dp" />
+        </RelativeLayout>
 </RelativeLayout>
