@@ -15,7 +15,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.tv.interactive.AppLinkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -27,27 +26,30 @@ import android.widget.Toast;
 
 import com.example.icar_notification.adapter.AppAdapter;
 import com.example.icar_notification.databinding.ActivityMainBinding;
+import com.example.icar_notification.listener.MusicStateListener;
 import com.example.icar_notification.listener.SelectAppListener;
 import com.example.icar_notification.model.AppDevice;
 import com.example.icar_notification.model.AppStore;
 import com.example.icar_notification.service.NotificationListener;
 import com.example.icar_notification.share.DataMusicStore;
 import com.example.icar_notification.share.DataStore;
+import com.example.icar_notification.utils.MusicUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SelectAppListener {
-
+public class MainActivity extends AppCompatActivity implements SelectAppListener, MusicStateListener {
     private List<ApplicationInfo> appList;
     private List<AppDevice> appDevices;
     private ActivityMainBinding binding;
     private DataStore dataStore;
     private Dialog dialog;
-
     private AppAdapter appAdapter;
 
     private DataMusicStore dataMusicStore;
+    private MusicUtil musicUtil;
+
+    private boolean isPlaying = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         appList = getAppInDevice();
         dialog = new Dialog(this);
         dataMusicStore = new DataMusicStore(this);
+        musicUtil = new MusicUtil(this, this);
         showDialog(dialog);
         initListener();
         boolean isNotificationListenerEnabled = isNotificationListenerServiceEnabled();
@@ -99,11 +102,44 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         return installedApps;
     }
 
+
     private void initListener() {
+        if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+            binding.txtNameApp.setText(dataStore.loadData().get(0).getNameApp());
+            binding.txtNameMusic.setText(dataMusicStore.loadDataNameMusic());
+            binding.txtNameApp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openApp(dataStore.loadData().get(0).getPackageName());
+                }
+            });
+        }
         binding.btnOpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.show();
+            }
+        });
+        binding.btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicUtil.preMusic();
+            }
+        });
+        binding.btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musicUtil.nextMusic();
+            }
+        });
+        binding.btnMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isPlaying) {
+                    musicUtil.pauseMusic();
+                } else {
+                    musicUtil.playMusic();
+                }
             }
         });
     }
@@ -138,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
     protected void onResume() {
         super.onResume();
         registerReceiverNotification();
+        musicUtil = new MusicUtil(this, this);
     }
 
     @Override
@@ -160,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         public void onReceive(Context context, Intent intent) {
             String notificationTitle = intent.getStringExtra("title");
             if (notificationTitle.length() > 20) {
-                String trimmedText = dataMusicStore.loadData().substring(0, 20) + "...";
+                String trimmedText = dataMusicStore.loadDataNameMusic().substring(0, 20) + "...";
                 binding.txtNameMusic.setText(trimmedText);
             } else {
                 binding.txtNameMusic.setText(notificationTitle);
@@ -169,12 +206,40 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         }
     };
 
+    private void openApp(String packageName) {
+        PackageManager packageManager = getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            musicUtil.playMusic();
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Ứng dụng không tồn tại", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     @Override
     public void onSelectAppListener(AppDevice appDevice) {
-        dataStore.addData(new AppStore(appDevice.getNameApp(), appDevice.getPackageName()));
-        Toast.makeText(this, appDevice.getNameApp(), Toast.LENGTH_LONG).show();
-        Log.e("MainActivity", appDevice.getPackageName());
-        dialog.dismiss();
+        if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+            dataStore.clearData();
+            dataStore.addData(new AppStore(appDevice.getNameApp(), appDevice.getPackageName()));
+            openApp(appDevice.getPackageName());
+            dialog.dismiss();
+        } else {
+            dataStore.addData(new AppStore(appDevice.getNameApp(), appDevice.getPackageName()));
+            openApp(appDevice.getPackageName());
+            dialog.dismiss();
+        }
+        binding.txtNameApp.setText(dataStore.loadData().get(0).getNameApp());
+    }
+
+    @Override
+    public void onMusicSateListener(boolean isPlaying) {
+        this.isPlaying = isPlaying;
+        if (isPlaying) {
+            binding.btnMusic.setImageResource(R.drawable.start);
+        } else {
+            binding.btnMusic.setImageResource(R.drawable.pause);
+        }
     }
 }

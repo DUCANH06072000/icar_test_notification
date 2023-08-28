@@ -26,6 +26,7 @@ public class NotificationListener extends NotificationListenerService {
         context = getApplicationContext();
         dataMusicStore = new DataMusicStore(context);
         dataStore = new DataStore(context);
+        Log.e("Notification","oncreate");
     }
 
     @Override
@@ -41,16 +42,19 @@ public class NotificationListener extends NotificationListenerService {
         Notification notification = sbn.getNotification();
         if (notification != null) {
             CharSequence title = notification.extras.getCharSequence(Notification.EXTRA_TITLE);
-            for (int i = 0; i < dataStore.loadData().size(); i++) {
-                if (packageName.equals(dataStore.loadData().get(i).getPackageName())) {
-                    if (title != null) {
-                        String notificationTitle = title.toString();
-                        Intent intent = new Intent("Msg");
-                        intent.putExtra("title", notificationTitle);
-                        Log.e("MyNotification", notificationTitle);
-                        title = notificationTitle;
-                        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                        dataMusicStore.saveData(notificationTitle);
+            if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+                for (int i = 0; i < dataStore.loadData().size(); i++) {
+                    if (packageName.equals(dataStore.loadData().get(i).getPackageName())) {
+                        if (title != null) {
+                            String notificationTitle = title.toString();
+                            Intent intent = new Intent("Msg");
+                            intent.putExtra("title", notificationTitle);
+                            Log.e("MyNotification", notificationTitle);
+                            title = notificationTitle;
+                            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                            dataMusicStore.saveDataNameMusic(notificationTitle);
+                            dataMusicStore.saveDataPackageName(packageName);
+                        }
                     }
                 }
             }

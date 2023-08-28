@@ -7,6 +7,8 @@ public class DataMusicStore {
     private static final String PREFERENCE_NAME = "MyPrefs";
     private static final String KEY_NAME_MUSIC = "nameMusic";
 
+    private static final String KEY_PACKAGENAME = "packageName";
+
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Context context;
@@ -17,13 +19,23 @@ public class DataMusicStore {
         editor = sharedPreferences.edit();
     }
 
-    public void saveData(String nameMusic) {
+    public void saveDataNameMusic(String nameMusic) {
         editor.putString(KEY_NAME_MUSIC, nameMusic);
         editor.apply();
     }
 
-    public String loadData() {
+    public void saveDataPackageName(String packageName) {
+        editor.putString(KEY_PACKAGENAME, packageName);
+        editor.apply();
+    }
+
+    public String loadDataNameMusic() {
         String nameMusic = sharedPreferences.getString(KEY_NAME_MUSIC, null);
         return nameMusic;
+    }
+
+    public String loadDataPackageName() {
+        String packageName = sharedPreferences.getString(KEY_PACKAGENAME, null);
+        return packageName;
     }
 }

@@ -62,6 +62,12 @@ public class DataStore {
     }
 
 
+    public void clearData() {
+        editor.clear();
+        editor.apply();
+    }
+
+
     public void removeDataApp(String textToRemove) {
         List<AppStore> dataList = loadData();
         if (dataList != null) {
