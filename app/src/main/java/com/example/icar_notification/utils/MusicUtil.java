@@ -4,9 +4,13 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.media.session.MediaSession;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.MediaController;
 import android.widget.Toast;
 
 import com.example.icar_notification.listener.MusicStateListener;
@@ -38,7 +42,6 @@ public class MusicUtil {
             listener.onMusicSateListener(isPlaying);
         }
     }
-
 
     public void nextMusic() {
         if (audioManager != null) {

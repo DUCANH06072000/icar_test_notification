@@ -17,6 +17,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.media.session.MediaControllerCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -52,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
 
     private boolean isPlaying = false;
 
+    private MediaSessionCompat mediaSessionCompat;
+
+    private MediaControllerCompat mediaController;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
             Log.e("Số lượng ứng dụng trong kho", dataStore.loadData().size() + "");
         }
         runService();
+
     }
 
     private void runService() {
@@ -141,11 +150,7 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         binding.btnMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying) {
-                    musicUtil.pauseMusic();
-                } else {
-                    musicUtil.playMusic();
-                }
+                mediaController.getTransportControls().pause();
             }
         });
     }
@@ -202,13 +207,7 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         @Override
         public void onReceive(Context context, Intent intent) {
             String notificationTitle = intent.getStringExtra("title");
-            if (notificationTitle.length() > 20) {
-                String trimmedText = dataMusicStore.loadDataNameMusic().substring(0, 20) + "...";
-                binding.txtNameMusic.setText(trimmedText);
-            } else {
-                binding.txtNameMusic.setText(notificationTitle);
-            }
-
+            binding.txtNameMusic.setText(notificationTitle);
         }
     };
 
@@ -216,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         PackageManager packageManager = getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
         if (intent != null) {
-            musicUtil.playMusic();
             startActivity(intent);
         } else {
             Toast.makeText(this, "Ứng dụng không tồn tại", Toast.LENGTH_LONG).show();
@@ -237,6 +235,10 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
             dialog.dismiss();
         }
         binding.txtNameApp.setText(dataStore.loadData().get(0).getNameApp());
+        binding.txtNameMusic.setText("");
+        mediaSessionCompat = new MediaSessionCompat(this, appDevice.getNameApp());
+        mediaSessionCompat.setActive(true); // Activate the session
+        mediaController = new MediaControllerCompat(this,mediaSessionCompat.getSessionToken());
     }
 
     @Override
