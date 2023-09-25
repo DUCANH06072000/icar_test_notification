@@ -12,7 +12,8 @@ import com.tatv.baseapp.service.BaseService;
 
 public class NotificationService extends BaseService {
     private static final String CHANNEL_ID = "ForegroundServiceChannel";
-    private static final int NOTIFICATION_THUMBNAIL = R.drawable.ic_launcher_background; // Thay thế bằng resource icon của bạn
+    private static final int NOTIFICATION_THUMBNAIL = R.drawable.ic_launcher_background
+            ; // Thay thế bằng resource icon của bạn
 
     @Override
     protected void onReceiverBroadcast(Context context, Intent intent) {

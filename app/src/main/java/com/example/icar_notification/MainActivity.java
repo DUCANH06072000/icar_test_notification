@@ -16,17 +16,23 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
+import android.support.v4.media.MediaBrowserCompat;
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaControllerCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.icar_notification.adapter.AppAdapter;
 import com.example.icar_notification.databinding.ActivityMainBinding;
-import com.example.icar_notification.listener.MusicStateListener;
 import com.example.icar_notification.listener.SelectAppListener;
 import com.example.icar_notification.model.AppDevice;
 import com.example.icar_notification.model.AppStore;
@@ -34,12 +40,12 @@ import com.example.icar_notification.service.NotificationListener;
 import com.example.icar_notification.service.NotificationService;
 import com.example.icar_notification.share.DataMusicStore;
 import com.example.icar_notification.share.DataStore;
-import com.example.icar_notification.utils.MusicUtil;
+import com.example.icar_notification.utils.MediaSessionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SelectAppListener, MusicStateListener {
+public class MainActivity extends AppCompatActivity implements SelectAppListener {
     private List<ApplicationInfo> appList;
     private List<AppDevice> appDevices;
     private ActivityMainBinding binding;
@@ -48,9 +54,37 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
     private AppAdapter appAdapter;
 
     private DataMusicStore dataMusicStore;
-    private MusicUtil musicUtil;
 
     private boolean isPlaying = false;
+
+    private MediaSessionCompat mediaSessionCompat;
+    private MediaControllerCompat mediaController;
+    private MediaBrowserCompat mediaBrowserCompat;
+
+    private long currentPlaybackPosition = 0;
+    private long totalDuration = 0;
+
+    private final Handler handler = new Handler();
+    private final Runnable updateProgressRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isPlaying) {
+                currentPlaybackPosition = mediaController.getPlaybackState().getPosition();
+                updateProgressViews(); // Cập nhật giao diện với thời gian hiện tại
+                handler.postDelayed(this, 1000); // Lặp lại sau mỗi giây
+            }
+        }
+    };
+
+    private void updateProgressViews() {
+        // Format thời gian thành định dạng phút:giây
+        String currentTimeStr = formatTime(currentPlaybackPosition);
+        String totalDurationStr = formatTime(totalDuration);
+        Log.e("Thời gian hiện tại", currentTimeStr + " /s ");
+        // Cập nhật giá trị và trạng thái của SeekBar
+        binding.seekbar.setMax((int) totalDuration);
+        binding.seekbar.setProgress((int) currentPlaybackPosition);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         appList = getAppInDevice();
         dialog = new Dialog(this);
         dataMusicStore = new DataMusicStore(this);
-        musicUtil = new MusicUtil(this, this);
         showDialog(dialog);
         initListener();
         boolean isNotificationListenerEnabled = isNotificationListenerServiceEnabled();
@@ -76,7 +109,9 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
             Log.e("Số lượng ứng dụng trong kho", dataStore.loadData().size() + "");
         }
         runService();
+        setUpMedia();
     }
+
 
     private void runService() {
         startForegroundService(new Intent(this, NotificationService.class));
@@ -120,6 +155,27 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
                 }
             });
         }
+        binding.seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    // Cập nhật thời gian phát nhạc theo giá trị của SeekBar
+                    mediaController.getTransportControls().seekTo(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Dừng việc cập nhật tự động trong thời gian người dùng vuốt SeekBar
+                handler.removeCallbacks(updateProgressRunnable);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Bắt đầu việc cập nhật tự động sau khi người dùng dừng vuốt SeekBar
+                handler.post(updateProgressRunnable);
+            }
+        });
         binding.btnOpenDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,22 +185,46 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         binding.btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                musicUtil.preMusic();
+                if (isCheckNotification()) {
+                    mediaController.getTransportControls().skipToPrevious();
+                } else {
+                    if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+                        openApp(dataStore.loadData().get(0).getPackageName());
+                    } else {
+                        Toast.makeText(MainActivity.this, "Chưa chọn app", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                musicUtil.nextMusic();
+                if (isCheckNotification()) {
+                    mediaController.getTransportControls().skipToNext();
+                } else {
+                    if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+                        openApp(dataStore.loadData().get(0).getPackageName());
+                    } else {
+                        Toast.makeText(MainActivity.this, "Chưa chọn app", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
         binding.btnMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying) {
-                    musicUtil.pauseMusic();
+                if (isCheckNotification()) {
+                    if (isPlaying) {
+                        mediaController.getTransportControls().pause();
+                    } else {
+                        mediaController.getTransportControls().play();
+                    }
                 } else {
-                    musicUtil.playMusic();
+                    if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+                        openApp(dataStore.loadData().get(0).getPackageName());
+                    } else {
+                        Toast.makeText(MainActivity.this, "Chưa chọn app", Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -179,8 +259,9 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
     @Override
     protected void onResume() {
         super.onResume();
+        setUpMedia();
         registerReceiverNotification();
-        musicUtil = new MusicUtil(this, this);
+
     }
 
     @Override
@@ -202,21 +283,15 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
         @Override
         public void onReceive(Context context, Intent intent) {
             String notificationTitle = intent.getStringExtra("title");
-            if (notificationTitle.length() > 20) {
-                String trimmedText = dataMusicStore.loadDataNameMusic().substring(0, 20) + "...";
-                binding.txtNameMusic.setText(trimmedText);
-            } else {
-                binding.txtNameMusic.setText(notificationTitle);
-            }
-
+            binding.txtNameMusic.setText(notificationTitle);
         }
     };
+
 
     private void openApp(String packageName) {
         PackageManager packageManager = getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
         if (intent != null) {
-            musicUtil.playMusic();
             startActivity(intent);
         } else {
             Toast.makeText(this, "Ứng dụng không tồn tại", Toast.LENGTH_LONG).show();
@@ -237,15 +312,71 @@ public class MainActivity extends AppCompatActivity implements SelectAppListener
             dialog.dismiss();
         }
         binding.txtNameApp.setText(dataStore.loadData().get(0).getNameApp());
+        binding.txtNameMusic.setText("");
+        setUpMedia();
     }
 
-    @Override
-    public void onMusicSateListener(boolean isPlaying) {
-        this.isPlaying = isPlaying;
-        if (isPlaying) {
-            binding.btnMusic.setImageResource(R.drawable.start);
+    private void setUpMedia() {
+        if (dataStore.loadData() != null && dataStore.loadData().size() > 0) {
+            MediaSessionCompat.Token token = MediaSessionHelper.getMediaSessionTokenForPackage(this, dataStore.loadData().get(0).getPackageName());
+            if (token != null) {
+                mediaController = new MediaControllerCompat(this, token);
+                mediaController.registerCallback(mCallback);
+                mCallback.onPlaybackStateChanged(mediaController.getPlaybackState());
+                mCallback.onMetadataChanged(mediaController.getMetadata());
+            } else {
+                Toast.makeText(this, "Ứng dụng chưa chạy", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    private final MediaControllerCompat.Callback mCallback = new MediaControllerCompat.Callback() {
+        @Override
+        public void onPlaybackStateChanged(PlaybackStateCompat playbackState) {
+            onUpdate();
+            if (playbackState != null) {
+                if (playbackState.getState() == PlaybackStateCompat.STATE_PLAYING) {
+                    isPlaying = true;
+                    binding.btnMusic.setImageResource(R.drawable.start);
+                    handler.post(updateProgressRunnable); // Bắt đầu cập nhật thời gian hiện tại
+                } else if (playbackState.getState() == PlaybackStateCompat.STATE_PAUSED) {
+                    isPlaying = false;
+                    binding.btnMusic.setImageResource(R.drawable.pause);
+                    handler.removeCallbacks(updateProgressRunnable); // Dừng cập nhật thời gian hiện tại
+                }
+            }
+        }
+
+        @Override
+        public void onMetadataChanged(MediaMetadataCompat metadata) {
+            onUpdate();
+            totalDuration = metadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION);
+            updateProgressViews();
+        }
+
+        @Override
+        public void onSessionDestroyed() {
+        }
+
+        private void onUpdate() {
+
+        }
+    };
+
+    private String formatTime(long timeInMillis) {
+        int seconds = (int) (timeInMillis / 1000) % 60;
+        int minutes = (int) ((timeInMillis / (1000 * 60)) % 60);
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+
+    public boolean isCheckNotification() {
+        if (mediaController != null) {
+            return true;
         } else {
-            binding.btnMusic.setImageResource(R.drawable.pause);
+            return false;
         }
     }
 }
