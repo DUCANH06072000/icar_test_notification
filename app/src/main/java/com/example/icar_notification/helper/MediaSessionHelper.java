@@ -1,4 +1,4 @@
-package com.example.icar_notification.utils;
+package com.example.icar_notification.helper;
 
 import android.content.ComponentName;
 import android.content.Context;

@@ -52,8 +52,6 @@ public class NotificationListener extends NotificationListenerService {
                             Log.e("MyNotification", notificationTitle);
                             title = notificationTitle;
                             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-                            dataMusicStore.saveDataNameMusic(notificationTitle);
-                            dataMusicStore.saveDataPackageName(packageName);
                         }
                     }
                 }
